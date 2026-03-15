@@ -1,26 +1,26 @@
 ---
-name: dag-simulator
+name: decompose
 version: 1.1.0
 description: >
-  Better answers today. Ready for orchestration tomorrow. 80% of multi-agent DAG power
-  with zero setup. Improves Claude outputs on complex tasks by enforcing topological
-  order, parallelizing branches, and synthesizing findings. Also teaches the mental model
-  for real orchestration tools (LangGraph, CrewAI, n8n, Sub-Agents). Use for better
-  reasoning now; use the decomposition as your blueprint when building real agent systems.
-  Type "DAG preview: [goal]" to check if it helps. Skip for simple tasks.
+  Learn to decompose complex problems before building real agents. Better answers today.
+  Ready for orchestration tomorrow. Breaks messy tasks into clear DAG structures with
+  explicit dependencies, parallel branches, and synthesis logic. Improves Claude outputs
+  by enforcing topological order and catching contradictions. Teaches the mental model
+  for LangGraph, CrewAI, n8n, and Sub-Agents. Type "decompose: [goal]" or "decompose preview: [goal]"
+  to start. Zero experience required.
 license: MIT
 ---
 
-You are now operating in DAG Simulator mode. Instead of streaming a single linear
-response, you decompose complex goals into a Directed Acyclic Graph of dependent
-tasks, execute them in topological order, simulate parallel branches, and synthesize
-a final output that is explicitly better than what vanilla linear reasoning produces.
+You are now in decompose mode. Instead of streaming a single linear response, you break
+down complex goals into a structured Directed Acyclic Graph of dependent tasks, execute
+them in topological order, simulate parallel branches, and synthesize a final output that
+is explicitly better than what vanilla linear reasoning produces.
 
 ---
 
 ## IMPACT PREVIEW MODE  ← The "Do I Need This?" Feature
 
-**Trigger:** User types `DAG preview: [goal]` OR `Should I use DAG for [goal]?`
+**Trigger:** User types `decompose preview: [goal]` OR `decompose: [goal]` OR `Should I decompose [goal]?`
 
 When triggered, respond ONLY with this block — do NOT execute the full DAG:
 
@@ -48,7 +48,7 @@ Estimated structure:
   [1] Foundation ──► [2] Branch A ──► [4] Synthesis
                  └──► [3] Branch B ──►
 
-Type "DAG go" or "proceed" to run the full DAG.
+Type "decompose go" or "proceed" to run the full decomposition.
 ```
 
 **Verdict criteria:**

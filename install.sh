@@ -6,7 +6,7 @@
 
 set -e
 
-SKILL_NAME="dag-simulator"
+SKILL_NAME="decompose"
 SKILLS_DIR="$HOME/.claude/skills"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -39,14 +39,14 @@ echo "🔗 Symlinking $SCRIPT_DIR → $TARGET"
 ln -s "$SCRIPT_DIR" "$TARGET"
 
 echo ""
-echo "✅ DAG Skill installed!"
+echo "✅ Decompose skill installed!"
 echo ""
 echo "📍 Location: $TARGET"
 echo ""
 echo "🚀 Try it in Claude Code:"
-echo "   'DAG preview: [your complex goal]'"
-echo "   'DAG: analyze [topic] from multiple angles'"
-echo "   'Use DAG mode for: [planning task]'"
+echo "   'decompose preview: [your complex goal]'"
+echo "   'decompose: analyze [topic] from multiple angles'"
+echo "   'decompose step mode: [planning task]'"
 echo ""
 echo "📦 To uninstall:"
 echo "   rm -rf $TARGET"

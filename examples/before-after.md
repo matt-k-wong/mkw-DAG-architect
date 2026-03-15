@@ -41,9 +41,9 @@ Claude and DAG Simulator mode across four domains.
 
 ---
 
-### ✅ AFTER (DAG Skill)
+### ✅ AFTER (Decompose Skill)
 
-**[IMPACT PREVIEW — shown if user types "DAG preview:" first]**
+**[IMPACT PREVIEW — shown if user types "decompose preview:" first]**
 ```
 DAG IMPACT PREVIEW
 ══════════════════
@@ -148,7 +148,7 @@ No framework for weighing competing factors. Generic advice.
 
 ---
 
-### ✅ AFTER (DAG Skill)
+### ✅ AFTER (Decompose Skill)
 
 ```xml
 <dag goal="Job offer decision: SF → Austin, 40% pay increase">
@@ -182,10 +182,10 @@ vs. Vanilla Claude:
 
 ---
 
-## Example 3: When DAG Says ❌ SKIP
+## Example 3: When Decompose Says ❌ SKIP
 
 ### Prompt
-*"DAG preview: write a limerick about my cat Mr. Fluffington"*
+*"decompose preview: write a limerick about my cat Mr. Fluffington"*
 
 ```
 DAG IMPACT PREVIEW
@@ -205,6 +205,19 @@ Vanilla Claude will do this perfectly.
 ```
 
 This is the skill working correctly — knowing when NOT to activate.
+
+---
+
+## Quick Reference: Trigger Phrases
+
+| What you want | What to type |
+|--------------|-------------|
+| Check if decompose helps | `decompose preview: [goal]` |
+| Full decomposition | `decompose: [goal]` |
+| Step-by-step with pauses | `decompose step mode: [goal]` |
+| Re-run one node | `Re-run node 3 with this update: [info]` |
+| Continue after pause | `Continue decompose` or `Next node` |
+| Auto (Claude decides) | Just describe your complex goal normally |
 
 ---
 

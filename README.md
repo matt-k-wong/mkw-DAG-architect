@@ -59,7 +59,7 @@ The DAG Skill fixes all of this — with no external tools, no API keys, no fram
 </td>
 <td valign="top">
 
-**Prompt:** *"DAG: Analyze the EV charging market in Europe for 2026 investment opportunities"*
+**Prompt:** *"decompose: Analyze the EV charging market in Europe for 2026 investment opportunities"*
 
 **Plan (shown upfront):**
 ```xml
@@ -115,7 +115,7 @@ vs. Vanilla Claude:
 </td>
 <td valign="top">
 
-**Prompt:** *"DAG: Refactor my payment module for security and scalability"*
+**Prompt:** *"decompose: Refactor my payment module for security and scalability"*
 
 **Nodes execute in order:**
 1. Dependency & flow mapping
@@ -276,17 +276,14 @@ The skill is purely prompt-based — no external dependencies.
 Once installed, use any of these in a Claude chat:
 
 ```
-# Check if DAG will help (before committing)
-DAG preview: write a comprehensive onboarding guide for new engineers
+# Check if decomposition will help (before committing)
+decompose preview: write a comprehensive onboarding guide for new engineers
 
-# Run the full DAG
-DAG: analyze competitor positioning for our B2B SaaS
-
-# Explicit trigger (also works)
-Use DAG mode for: planning a product launch
+# Run the full decomposition
+decompose: analyze competitor positioning for our B2B SaaS
 
 # Step through node-by-node (good for large tasks)
-DAG step mode: refactor our authentication system
+decompose step mode: refactor our authentication system
 
 # Re-run one node after updating context
 Re-run node 3 with this new data: [paste data]
@@ -299,8 +296,8 @@ description tells Claude when to engage automatically.
 
 ## 📊 When to Use / When NOT to Use
 
-| Use DAG When... | Skip DAG When... |
-|----------------|-----------------|
+| Use Decompose When... | Skip When... |
+|----------------------|-------------|
 | ✅ Task has 4+ interdependent steps | ❌ Single-answer factual question |
 | ✅ Multiple angles need synthesis | ❌ Short creative task (poem, haiku, blurb) |
 | ✅ Order of operations matters | ❌ Simple explanation of one concept |
@@ -309,7 +306,7 @@ description tells Claude when to engage automatically.
 | ✅ You want auditable, traceable output | ❌ Task you've already fully decomposed |
 | ✅ Stakes are high (strategy, code, research) | ❌ User explicitly asks for "brief" or "quick" |
 
-**Not sure?** Type `DAG preview: [your goal]` — Claude will tell you whether it's worth it
+**Not sure?** Type `decompose preview: [your goal]` — Claude will tell you whether it's worth it
 and exactly what you'd gain. No commitment required.
 
 ---
@@ -611,35 +608,35 @@ guides in `examples/`.
 
 ---
 
-### "Is DAG overkill for simple decisions?"
-**Sometimes.** Use the `DAG preview:` mode first. If Claude says ❌ SKIP, just ask normally.
+### "Is decompose overkill for simple decisions?"
+**Sometimes.** Use the `decompose preview:` mode first. If Claude says ❌ SKIP, just ask normally.
 The skill knows when it's useful.
 
 ---
 
-### "Can I use DAG in production?"
-**Not directly.** DAG is the *planning* layer. But here's what you do:
+### "Can I use decompose in production?"
+**Not directly.** Decompose is the *planning* layer. But here's what you do:
 
-1. Use DAG Skill to decompose your task into a structure
+1. Use decompose to break your task into a clear structure
 2. Copy that structure into LangGraph, CrewAI, or n8n
 3. Those tools *execute* the structure
 
-DAG is where decomposition happens (the hard part). The orchestration tool is where
+Decompose is where decomposition happens (the hard part). The orchestration tool is where
 execution happens (the straightforward part). You get the best of both.
 
 **Example:** An LLM can't know the right 7-node structure for "build a recommendation engine."
-Claude + DAG Skill figures that out for you. Then you plug it into your orchestration tool.
+Claude + decompose figures that out for you. Then you plug it into your orchestration tool.
 
 ---
 
 ### "Do I need to know anything before using this?"
-No. Start with `DAG preview: [something complex]`. If it helps, great. If not, Claude tells
+No. Start with `decompose preview: [something complex]`. If it helps, great. If not, Claude tells
 you. Zero required knowledge.
 
 ---
 
 ### "Is there a video tutorial?"
-Not yet, but: run `DAG preview: what should I prioritize in my product roadmap`, see the
+Not yet, but: run `decompose preview: what should I prioritize in my product roadmap`, see the
 structure, then read the synthesis. That's the tutorial. Repeat 3–5 times, you'll get it.
 
 ---
