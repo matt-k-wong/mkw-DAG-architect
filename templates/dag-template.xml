@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DAG Simulator — Blank Template
+  Copy this and fill in your nodes. Paste into your Claude chat with:
+  "Use this DAG structure: [paste template]"
+-->
+<dag goal="[Your goal here]" mode="full">
+
+  <!-- ROOT NODES (no dependencies) -->
+  <node id="1" name="[Foundation / Context]" type="research" depends="[]" parallel_with="[]">
+    <objective>[What this node should produce — one sentence]</objective>
+  </node>
+
+  <!-- SECOND LEVEL (depend on root) -->
+  <node id="2" name="[Branch A]" type="analysis" depends="[1]" parallel_with="3">
+    <objective>[Angle A of analysis]</objective>
+  </node>
+
+  <node id="3" name="[Branch B]" type="research" depends="[1]" parallel_with="2">
+    <objective>[Angle B of analysis — independent from Branch A]</objective>
+  </node>
+
+  <!-- VALIDATION (catches issues before synthesis) -->
+  <node id="4" name="Contradiction Check" type="validation" depends="[2,3]" parallel_with="[]">
+    <objective>Identify conflicts between nodes 2 and 3; resolve with rationale</objective>
+  </node>
+
+  <!-- SYNTHESIS (always last) -->
+  <node id="5" name="Final Synthesis" type="synthesis" depends="[2,3,4]" parallel_with="[]">
+    <objective>Produce final answer; include confidence score and vs-vanilla-Claude summary</objective>
+  </node>
+
+</dag>
+
+<!--
+NODE TYPES:
+  research   — gather/analyze from a specific angle
+  analysis   — process upstream outputs
+  synthesis  — merge multiple branches
+  validation — check for errors, gaps, contradictions
+  creative   — generate options or variants
+  decision   — score alternatives and select
+
+TIPS:
+  - depends="[]"     means no prerequisites (root node)
+  - depends="[1,2]"  means wait for nodes 1 AND 2
+  - parallel_with="3" means this node and node 3 are independent (run in parallel)
+  - Always end with at least one synthesis node
+  - Add a validation node before final synthesis for high-stakes tasks
+-->

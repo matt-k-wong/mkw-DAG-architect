@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DAG TEMPLATE: Deep Research & Analysis
+  Best for: market research, competitive analysis, literature reviews, investment theses,
+            due diligence, policy analysis, academic research
+  
+  Trigger: "DAG: [research topic]" or paste this template
+-->
+<dag goal="[Research topic]" mode="full" domain="research">
+
+  <!-- LAYER 1: Frame the question (no deps) -->
+  <node id="1" name="Scope & Research Questions" type="analysis" depends="[]">
+    <objective>Define exact research questions, scope boundaries, and what a good answer looks like</objective>
+  </node>
+
+  <!-- LAYER 2: Gather from independent angles (parallel) -->
+  <node id="2" name="Primary Evidence" type="research" depends="[1]" parallel_with="3,4">
+    <objective>Core data, statistics, facts — what is empirically known</objective>
+  </node>
+
+  <node id="3" name="Stakeholder & Player Landscape" type="research" depends="[1]" parallel_with="2,4">
+    <objective>Who are the key actors, what are their positions, incentives, and influence</objective>
+  </node>
+
+  <node id="4" name="Trend & Trajectory Analysis" type="analysis" depends="[1]" parallel_with="2,3">
+    <objective>Direction of travel — what is changing, accelerating, or reversing</objective>
+  </node>
+
+  <!-- LAYER 3: Synthesize evidence + identify tensions -->
+  <node id="5" name="Pattern Recognition" type="synthesis" depends="[2,3,4]">
+    <objective>What patterns emerge across the three research branches; where do they agree and conflict</objective>
+  </node>
+
+  <!-- LAYER 4: Apply to the specific goal -->
+  <node id="6" name="Implications & So-What" type="analysis" depends="[5]">
+    <objective>What do these patterns mean for the original research question — concrete implications</objective>
+  </node>
+
+  <!-- LAYER 5: Risk and counter-evidence -->
+  <node id="7" name="Counter-Thesis & Risks" type="validation" depends="[5,6]">
+    <objective>What evidence challenges the emerging thesis; what risks or blind spots exist</objective>
+  </node>
+
+  <!-- LAYER 6: Final synthesis -->
+  <node id="8" name="Research Synthesis" type="synthesis" depends="[6,7]">
+    <objective>
+      Final answer to the research question with confidence level.
+      Include: key findings, confidence score, caveats, recommended next questions.
+      End with vs-vanilla-Claude summary.
+    </objective>
+  </node>
+
+</dag>

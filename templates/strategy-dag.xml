@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DAG TEMPLATE: Business Strategy & Planning
+  Best for: go-to-market plans, OKRs, product strategy, competitive positioning,
+            pricing, M&A integration, operational playbooks, fundraising narratives
+
+  Trigger: "DAG: [strategy task]" or paste this template
+-->
+<dag goal="[Strategic goal]" mode="full" domain="strategy">
+
+  <!-- LAYER 1: Anchor in goals and constraints first -->
+  <node id="1" name="Goals, Metrics & Constraints" type="analysis" depends="[]">
+    <objective>Define success criteria, key metrics, hard constraints (budget, timeline, team), and what "good" looks like</objective>
+  </node>
+
+  <!-- LAYER 2: Market and customer understanding (parallel — both inform layer 3) -->
+  <node id="2" name="Customer & Persona Research" type="research" depends="[1]" parallel_with="3">
+    <objective>Who are the target customers, what are their jobs-to-be-done, pain points, and decision criteria</objective>
+  </node>
+
+  <node id="3" name="Market & Competitive Landscape" type="research" depends="[1]" parallel_with="2">
+    <objective>Market size, growth, key players, competitive dynamics, positioning whitespace</objective>
+  </node>
+
+  <!-- LAYER 3: Value proposition (must come AFTER customer + market) -->
+  <node id="4" name="Value Proposition & Differentiation" type="synthesis" depends="[2,3]">
+    <objective>What unique value do we deliver, to whom, and why can't they get it elsewhere — validated against nodes 2 and 3</objective>
+  </node>
+
+  <!-- LAYER 4: Execution decisions (parallel — channels and pricing are independent) -->
+  <node id="5" name="Channel & Acquisition Strategy" type="decision" depends="[2,4]" parallel_with="6">
+    <objective>How do we reach customers — channels ranked by fit/cost/scalability given personas from node 2</objective>
+  </node>
+
+  <node id="6" name="Pricing & Monetization Model" type="decision" depends="[2,3,4]" parallel_with="5">
+    <objective>Pricing model, tiers, and rationale — grounded in customer WTP (node 2) and competitive benchmarks (node 3)</objective>
+  </node>
+
+  <!-- LAYER 5: Risks (always before final commit) -->
+  <node id="7" name="Risk Scenarios & Mitigations" type="validation" depends="[4,5,6]">
+    <objective>Top 5 risks to the strategy; for each: likelihood, impact, early warning signal, mitigation</objective>
+  </node>
+
+  <!-- LAYER 6: Final roadmap -->
+  <node id="8" name="Strategic Roadmap & Next Steps" type="synthesis" depends="[5,6,7]">
+    <objective>
+      Phased plan (Now / Next / Later) with owners, milestones, and decision gates.
+      Resolve any conflicts between channels (node 5) and pricing (node 6).
+      End with confidence score and vs-vanilla-Claude summary.
+    </objective>
+  </node>
+
+</dag>

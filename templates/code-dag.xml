@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  DAG TEMPLATE: Software Development & Engineering
+  Best for: refactoring, feature development, architecture design, debugging,
+            security audits, performance optimization, code review
+  
+  Trigger: "DAG: [code task]" or paste this template
+  Note: Works best when you paste relevant code in the same message
+-->
+<dag goal="[Engineering task]" mode="full" domain="software">
+
+  <!-- LAYER 1: Understand before changing anything -->
+  <node id="1" name="Dependency & Flow Mapping" type="analysis" depends="[]">
+    <objective>Map current structure: dependencies, data flows, entry/exit points, what calls what</objective>
+  </node>
+
+  <!-- LAYER 2: Audit from independent angles (parallel) -->
+  <node id="2" name="Security Audit" type="validation" depends="[1]" parallel_with="3,4">
+    <objective>OWASP Top 10 review; authentication, authorization, input validation, secrets, injection risks</objective>
+  </node>
+
+  <node id="3" name="Scalability & Performance" type="analysis" depends="[1]" parallel_with="2,4">
+    <objective>Bottlenecks, N+1 queries, blocking I/O, memory leaks, inefficient algorithms, caching gaps</objective>
+  </node>
+
+  <node id="4" name="Architecture & Maintainability" type="analysis" depends="[1]" parallel_with="2,3">
+    <objective>Separation of concerns, coupling, testability, naming, dead code, abstraction leaks</objective>
+  </node>
+
+  <!-- LAYER 3: Synthesize findings into a plan -->
+  <node id="5" name="Refactor Plan (Priority Ordered)" type="synthesis" depends="[2,3,4]">
+    <objective>
+      Prioritized list of changes: what MUST happen before what.
+      Security fixes before performance. Architecture before new features.
+      Flag any changes that conflict across audit branches and resolve.
+    </objective>
+  </node>
+
+  <!-- LAYER 4: Test strategy (must be planned before code) -->
+  <node id="6" name="Test Strategy" type="analysis" depends="[5]">
+    <objective>What tests are needed, in what order, to validate the refactor safely</objective>
+  </node>
+
+  <!-- LAYER 5: Implementation -->
+  <node id="7" name="Code Generation" type="creative" depends="[5,6]">
+    <objective>Write the refactored code, implementing plan from node 5, testable per node 6</objective>
+  </node>
+
+  <!-- LAYER 6: Validation -->
+  <node id="8" name="Edge Case & Regression Check" type="validation" depends="[7]">
+    <objective>
+      Review generated code for: edge cases missed, regressions introduced,
+      deviations from the plan, and any new issues created.
+      Produce diff summary and confidence score.
+    </objective>
+  </node>
+
+</dag>
