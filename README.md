@@ -183,6 +183,65 @@ Changing Node 2 (personas) automatically signals which downstream nodes need upd
 
 ---
 
+---
+
+## 🎯 Three Ways This Helps (Pick Your Path)
+
+### Lens 1: Better Answers Today
+**For:** Anyone using Claude now who wants significantly better outputs on complex tasks
+
+DAG skill gives you **80% of production multi-agent DAG power with zero setup**:
+- Dependencies are explicit, not hidden
+- Parallel branches are explored, not flattened
+- Contradictions are resolved, not ignored
+- Every answer is traceable: you can see *why* each conclusion exists
+
+**Result:** Better outputs, better decisions, auditable reasoning.
+
+---
+
+### Lens 2: Learn How AI Orchestration Actually Works
+**For:** Anyone building with agents, workflows, or multi-step automation
+
+The next era of AI isn't "one prompt, one answer." It's orchestration — chaining models,
+parallelizing work, synthesizing across branches. Most people will need this skill in the
+next 12 months.
+
+DAG Skill teaches you the *mental model* first, risk-free:
+- **Feel it:** Run a DAG, see dependencies materialize
+- **Name it:** "Oh, this is sequential, that's parallel, we need to resolve this contradiction"
+- **Build it:** Recognize patterns in your own problems
+- **Transfer it:** Open LangGraph / CrewAI / n8n and realize you already know this
+
+**Result:** When orchestration hits you, you're ready. No learning curve, just syntax.
+
+---
+
+### Lens 3: Decompose Tasks Before Building Real Agents
+**For:** Teams planning to move from "ask Claude once" to "build real workflows"
+
+The biggest bottleneck in orchestration isn't *execution* — it's **decomposition**.
+
+Your orchestration tool (LangGraph, CrewAI, n8n) can execute a DAG structure perfectly.
+What it can't do is figure out what the structure *should be*.
+
+DAG Skill solves that:
+1. You describe a messy problem to Claude
+2. Claude breaks it into a clear DAG structure (nodes, dependencies, parallel branches)
+3. You port that structure into your orchestration tool (20 minutes of straightforward mapping)
+4. Your agents execute it (handled by the tool)
+
+DAG is the *planning layer*. Real tools are the *execution layer*.
+
+**Result:** When you're ready to build agents, you already have the blueprint.
+
+---
+
+**You can use this skill for any or all three. Most users will do Lens 1 first, then discover Lens 2,
+then graduate to Lens 3 when they're ready for real orchestration.**
+
+---
+
 ## 🚀 Install (30 Seconds)
 
 ### Option A — claude.ai (Web/Mobile/Desktop)
@@ -283,6 +342,175 @@ DAG enforces: *constraints → resources → critical path → dependencies → 
 
 ---
 
+## 🌉 From Claude DAG to Real Orchestration
+
+The biggest gap between "thinking in DAGs" and "building with agents" isn't execution — it's **decomposition**.
+
+In production orchestration, your first step is always:
+> *"Break this messy task into a DAG structure"*
+
+That's where DAG Skill shines.
+
+---
+
+### The Real Workflow
+
+#### Step 1: Use Claude DAG to Break Down the Task (This Skill)
+**Problem:** "Build a product recommendation engine"
+
+You write:
+```
+DAG: Design a recommendation engine that balances personalization, performance, and compliance
+```
+
+Claude shows you:
+```xml
+<node id="1" name="Requirements & Constraints" depends="[]"/>
+<node id="2" name="Data Architecture" depends="[1]"/>
+<node id="3" name="ML Model Selection" depends="[1]" parallel_with="4"/>
+<node id="4" name="Privacy & Compliance" depends="[1]" parallel_with="3"/>
+<node id="5" name="Integration Points" depends="[2,3,4]"/>
+<node id="6" name="Testing Strategy" depends="[5]"/>
+<node id="7" name="Implementation Plan" depends="[6]"/>
+```
+
+**Output:** A dependency graph. A clear structure. A roadmap.
+
+This is the hard part. Claude does it for you.
+
+---
+
+#### Step 2: Port the DAG to Your Orchestration Tool (You Handle Later)
+
+Once you have the DAG, the execution layer is straightforward:
+
+**LangGraph:**
+```python
+# Your DAG structure → LangGraph agents
+graph = StateGraph(State)
+
+graph.add_node("requirements", requirements_agent)
+graph.add_node("data_arch", data_agent)
+graph.add_node("ml_model", ml_agent)
+graph.add_node("compliance", compliance_agent)
+graph.add_node("integration", integration_agent)
+graph.add_node("testing", testing_agent)
+graph.add_node("implementation", impl_agent)
+
+# Your dependencies → Graph edges
+graph.add_edge("requirements", "data_arch")
+graph.add_edge("requirements", "ml_model")
+graph.add_edge("requirements", "compliance")
+graph.add_edge(["data_arch", "ml_model", "compliance"], "integration")
+graph.add_edge("integration", "testing")
+graph.add_edge("testing", "implementation")
+```
+
+**CrewAI:**
+```python
+requirements_task = Task(..., agent=requirements_agent)
+data_task = Task(..., depends_on=[requirements_task], agent=data_agent)
+ml_task = Task(..., depends_on=[requirements_task], agent=ml_agent)
+compliance_task = Task(..., depends_on=[requirements_task], agent=compliance_agent)
+# ... and so on, mirroring your DAG structure
+```
+
+**n8n:**
+- Nodes = workflow steps (your nodes become n8n nodes)
+- Dependencies = connections (your edges become n8n links)
+- Parallel branches = n8n parallel branches
+- Synthesis = n8n merge node or code step
+
+---
+
+### Why This Matters
+
+**The hard part is knowing what to ask each agent to do and in what order.**
+
+Production frameworks (LangGraph, CrewAI, n8n) handle the *execution* fine. They don't help you figure out the *structure*.
+
+DAG Skill helps you figure out the structure. Once you have it, translating to code is mechanical.
+
+```
+Your brain (using DAG Skill) → Decomposition ← THE HARD PART
+                                    ↓
+                  (straightforward mapping, frameworks handle this)
+                                    ↓
+                    Your agent workflow (LangGraph/CrewAI/n8n)
+```
+
+---
+
+### The Practical Flow
+
+1. **Use DAG Skill** to break down a complex task
+   - Type: `DAG: [messy problem]`
+   - Get: Clear XML structure + synthesis
+   - Output: A blueprint
+
+2. **Copy the structure** into your orchestration tool
+   - Map nodes to agents/tasks
+   - Map dependencies to edges/ordering
+   - No guessing, no back-and-forth
+   - This takes minutes
+
+3. **Build the agent logic** for each node
+   - What does each agent actually *do*?
+   - This is the hard part, but it's isolated per-node
+   - Easier because you know the context (other nodes, dependencies)
+
+4. **Test and iterate**
+   - Your DAG structure already told you the critical path
+   - You know which failures cascade
+
+---
+
+### Real Example: From DAG to LangGraph
+
+**Your Claude DAG (5 minutes to create):**
+```
+[1] Market Research
+[2] Competitive Analysis (parallel with 3)
+[3] Pricing Strategy (parallel with 2)
+[4] Go-to-Market Plan (depends on 1,2,3)
+[5] Risk Assessment (depends on 4)
+```
+
+**Your LangGraph code (20 minutes to write):**
+```python
+graph = StateGraph(State)
+
+# Nodes map 1:1 from DAG
+graph.add_node("market_research", market_research_agent)
+graph.add_node("competitive_analysis", competitive_analysis_agent)
+graph.add_node("pricing", pricing_strategy_agent)
+graph.add_node("gtm", gtm_planning_agent)
+graph.add_node("risk", risk_assessment_agent)
+
+# Edges map 1:1 from DAG dependencies
+graph.add_edge(START, "market_research")
+graph.add_edge("market_research", "competitive_analysis")
+graph.add_edge("market_research", "pricing")  # parallel
+graph.add_edge(["competitive_analysis", "pricing"], "gtm")
+graph.add_edge("gtm", "risk")
+graph.add_edge("risk", END)
+```
+
+**The bridge is trivial because you already decomposed correctly.**
+
+---
+
+### When You're Ready to Build
+
+Once you've internalized DAG thinking:
+- **DAG Skill** helps you design the structure
+- **LangGraph** (or CrewAI, n8n) executes it
+- **Your LLM agents** do the actual work
+
+But step 1 — the decomposition — is the bottleneck. DAG solves that.
+
+---
+
 ## 🏗️ How It Works
 
 ```
@@ -373,6 +601,49 @@ claude-dag-skill/
 
 ---
 
+## ❓ Common Questions
+
+### "Will this help me build real agents?"
+**Yes, but indirectly.** DAG teaches you how to *think* about orchestration AND helps you
+decompose complex tasks into clear structures. When you move to LangGraph/CrewAI, your DAG
+becomes your blueprint — nodes map to agents, dependencies map to edges. See the mapping
+guides in `examples/`.
+
+---
+
+### "Is DAG overkill for simple decisions?"
+**Sometimes.** Use the `DAG preview:` mode first. If Claude says ❌ SKIP, just ask normally.
+The skill knows when it's useful.
+
+---
+
+### "Can I use DAG in production?"
+**Not directly.** DAG is the *planning* layer. But here's what you do:
+
+1. Use DAG Skill to decompose your task into a structure
+2. Copy that structure into LangGraph, CrewAI, or n8n
+3. Those tools *execute* the structure
+
+DAG is where decomposition happens (the hard part). The orchestration tool is where
+execution happens (the straightforward part). You get the best of both.
+
+**Example:** An LLM can't know the right 7-node structure for "build a recommendation engine."
+Claude + DAG Skill figures that out for you. Then you plug it into your orchestration tool.
+
+---
+
+### "Do I need to know anything before using this?"
+No. Start with `DAG preview: [something complex]`. If it helps, great. If not, Claude tells
+you. Zero required knowledge.
+
+---
+
+### "Is there a video tutorial?"
+Not yet, but: run `DAG preview: what should I prioritize in my product roadmap`, see the
+structure, then read the synthesis. That's the tutorial. Repeat 3–5 times, you'll get it.
+
+---
+
 ## 🤝 Contributing
 
 PRs welcome. Priority areas:
@@ -380,7 +651,8 @@ PRs welcome. Priority areas:
 - New domain-specific DAG templates (legal, medical, academic, etc.)
 - Better compression strategies for 20+ node DAGs
 - Additional before/after examples
-- Integration guides (Claude Code, API, n8n, etc.)
+- Orchestration mapping guides (LangGraph, CrewAI, n8n, Sub-Agents)
+- Real-world examples of DAG → production agent system
 
 Please open an issue first for large changes.
 

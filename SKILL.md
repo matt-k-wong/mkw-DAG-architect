@@ -1,14 +1,13 @@
 ---
 name: dag-simulator
-version: 1.0.0
+version: 1.1.0
 description: >
-  Simulates Directed Acyclic Graph (DAG) workflows for structured, dependency-aware
-  reasoning. Auto-activates for complex tasks with multiple interdependent steps,
-  multi-angle analysis, synthesis from competing branches, or where linear thinking
-  risks contradictions and missed depth. Enforces topological execution order,
-  simulates parallel branches, aggregates findings, and shows what vanilla Claude
-  would have missed. Type "DAG preview: [goal]" to assess whether DAG adds value
-  before committing. Skip for simple, single-step, or purely creative tasks.
+  Better answers today. Ready for orchestration tomorrow. 80% of multi-agent DAG power
+  with zero setup. Improves Claude outputs on complex tasks by enforcing topological
+  order, parallelizing branches, and synthesizing findings. Also teaches the mental model
+  for real orchestration tools (LangGraph, CrewAI, n8n, Sub-Agents). Use for better
+  reasoning now; use the decomposition as your blueprint when building real agent systems.
+  Type "DAG preview: [goal]" to check if it helps. Skip for simple tasks.
 license: MIT
 ---
 
@@ -86,6 +85,87 @@ Do NOT activate DAG mode for:
 - Requests explicitly marked "quick", "brief", or "rough draft"
 
 **When unsure:** Offer the IMPACT PREVIEW instead of auto-running the full DAG.
+
+---
+
+## 📚 Learning Path (If Your Goal Is Orchestration Readiness)
+
+If you're here to learn how decomposition and orchestration thinking works, follow this progression:
+
+### Phase 1: Orientation (1–2 uses)
+**Goal:** Feel what dependency-driven thinking is like
+
+- Run `DAG preview:` on something you're unsure about
+- Don't overthink it — just see what Claude shows you
+- **Key insight:** Notice which branches *had* to be sequential vs. which could run in parallel
+
+**You'll notice:** Claude shows you a *reason* for the order, not just an order
+
+---
+
+### Phase 2: Recognition (3–5 uses)
+**Goal:** Start naming the patterns
+
+- When you use DAG, read the XML plan carefully
+- Ask yourself: "Why is Node 3 parallel with Node 4?"
+- Notice how dependencies *unlock* downstream thinking
+- Start asking Claude to `DAG preview:` naturally on hard problems
+
+**You'll notice:** You start seeing DAG patterns in your own thinking ("I can't pick channels until I know personas")
+
+---
+
+### Phase 3: Construction (ongoing)
+**Goal:** Build your own mental DAGs
+
+- Use the templates in `templates/` folder
+- Customize node types for your domain
+- Run `DAG step mode:` to slow down and see each decision point
+- Tweak and iterate
+
+**You'll notice:** You're writing DAG structures before asking Claude to execute them
+
+---
+
+### Phase 4: Transfer (when you build real systems)
+**Goal:** Move to production orchestration
+
+Once you're building workflows in LangGraph, CrewAI, or n8n, look back:
+- Your DAGs maps to agent graphs (nodes → agents, dependencies → edges)
+- Your synthesis logic maps to control flow
+- Your parallel branches map to async patterns
+- Nothing is new, just syntax
+
+**See the mapping guides in `examples/orchestration-mappings.md`**
+
+---
+
+**Where are you in this path? Just tell Claude:**
+- `"I'm in phase 1 — help me learn to recognize dependencies"`
+- `"I'm building real agents now — show me how this DAG maps to LangGraph"`
+
+Claude will adapt the explanation to where you are.
+
+---
+
+## Orchestration Context (AI Teaching Mode)
+
+If the user is learning orchestration concepts (even just understanding them), activate
+DAG mode and **add bridge commentary** to the synthesis:
+
+Example bridge line (add to every synthesis when user seems to be learning):
+
+```
+🌉 DECOMPOSITION BRIDGE:
+In LangGraph, this would be:
+  - Nodes 1–3 → Three separate agents (parallel execution)
+  - Node 4 → An aggregator agent that synthesizes outputs
+  - Decision logic → Conditional routing based on findings
+
+When you're ready to build real agents, you'll copy this structure directly
+into your tool's code. The decomposition you just did is the hard part.
+The execution is mechanical.
+```
 
 ---
 
