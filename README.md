@@ -37,54 +37,52 @@ The DAG Skill fixes all of this — with no external tools, no API keys, no fram
 
 ### Example: Market Research
 
-<table>
+<table width="100%">
 <tr>
-<th width="50%">❌ Before (Vanilla Claude)</th>
-<th width="50%">✅ After (DAG Skill)</th>
+<th width="50%">❌ Before</th>
+<th width="50%">✅ After</th>
 </tr>
 <tr>
-<td valign="top">
+<td valign="top" width="50%">
 
 **Prompt:** *"Analyze the EV charging market in Europe for 2026 investment opportunities"*
 
-> The European EV charging market is growing rapidly due to EU regulations. Key players include Ionity, Allego, ChargePoint, and Tesla. Growth is driven by Norway (90%+ EV penetration), Germany, France, and the UK. Challenges include grid capacity and high installation costs. Market size projected to reach €15–20B by 2030…
+The European EV charging market is set for significant growth by 2026, driven by AFIR regulations and the phase-out of ICE vehicles. Key players like Ionity and Allego are expanding, while Tesla is opening its Supercharger network. Norway leads in penetration, but Germany and France offer the largest absolute growth. However, grid constraints remain a major bottleneck. Investment opportunities include hardware manufacturing, SaaS for fleet management, and decentralized storage. Market size is projected to hit €20B by 2030, though some reports suggest €15B if infrastructure lags. Additionally, public-private partnerships (PPPs) will be crucial for scaling high-power charging (HPC) across the TEN-T corridors. Investors should also watch for advancements in vehicle-to-grid (V2G) technology, which could transform EVs into mobile energy storage units, though regulatory frameworks for this are still in their infancy in many member states. Furthermore, the integration of renewable energy sources at charging sites will become a competitive differentiator...
 
 **Problems:**
-- Regulatory + infrastructure + players mixed together with no dependency logic
-- "Investment opportunities" appears before competitive landscape is analyzed
-- No scoring of opportunities — all treated as equally valid
-- Contradictions possible between sections (different timelines, different market sizes)
-- No way to audit which claim came from which analysis
+- **Logical Gaps:** Jumped to "Investment opportunities" before analyzing competitors or demand forecasts.
+- **Surface Level:** Mixed regulatory, infra, and player data into a flat summary with no dependency logic.
+- **Auditability:** No way to trace which market size projection (€15B vs €20B) is more credible based on the logic.
+- **Scoring:** All opportunities are treated as equally valid with no risk-adjusted weighting.
+- **Contradictions:** Mentions "grid constraints" as a bottleneck but doesn't reconcile this with "rapid growth" projections.
+- **Hidden Prerequisites:** Discusses V2G opportunities without first establishing underlying grid stability requirements.
+- **Lack of Synthesis:** Multiple high-level claims are made, but they are never synthesized into a cohesive thesis.
+- **Static Thinking:** Fails to account for how a change in regulation (Node 1) would cascade through the entire analysis.
 
 </td>
-<td valign="top">
+<td valign="top" width="50%">
 
 **Prompt:** *"decompose: Analyze the EV charging market in Europe for 2026 investment opportunities"*
 
 **Plan (shown upfront):**
 ```xml
-<dag goal="EV charging market — EU investment thesis">
-  <node id="1" name="Regulatory Landscape" depends="[]"/>
-  <node id="2" name="Infrastructure Gaps" depends="[1]"/>
-  <node id="3" name="Player Mapping" depends="[1]" parallel_with="4"/>
-  <node id="4" name="Demand Forecast" depends="[1]" parallel_with="3"/>
-  <node id="5" name="Risk Matrix" depends="[2,3,4]"/>
-  <node id="6" name="Opportunity Scoring" depends="[3,4,5]"/>
-  <node id="7" name="Investment Thesis" type="synthesis" depends="[5,6]"/>
+<dag goal="EV Charging Market">
+  <node id="1" name="Regulation"/>
+  <node id="2" name="Infra" deps="[1]"/>
+  <node id="3" name="Players" deps="[1]" pl="4"/>
+  <node id="4" name="Demand" deps="[1]" pl="3"/>
+  <node id="5" name="Risk" deps="[2,3,4]"/>
+  <node id="6" name="Scoring" deps="[3,4,5]"/>
+  <node id="7" name="Synthesis" deps="[5,6]"/>
 </dag>
 ```
 
 Then executes node-by-node, merging parallel branches 3+4, resolving contradictions, and closing with:
 
-```
-vs. Vanilla Claude:
-• AFIR mandates were analyzed BEFORE player strategy
-  (not after) — uncovered Tesla's open-network pivot
-• Parallel branches found demand ≠ infrastructure 
-  alignment in Eastern EU — overlooked opportunity
-• Risk Matrix caught grid-constraint contradiction 
-  between nodes 2 and 4, resolved with hybrid thesis
-```
+**vs. Vanilla Claude:**
+- AFIR mandates analyzed BEFORE player strategy
+- Parallel branches found demand ≠ infra alignment
+- Risk Matrix caught grid-constraint contradiction
 
 </td>
 </tr>
@@ -94,26 +92,27 @@ vs. Vanilla Claude:
 
 ### Example: Software Refactoring
 
-<table>
+<table width="100%">
 <tr>
 <th width="50%">❌ Before</th>
 <th width="50%">✅ After</th>
 </tr>
 <tr>
-<td valign="top">
+<td valign="top" width="50%">
 
 **Prompt:** *"Refactor my payment module for security and scalability"*
 
-> First, move API keys to env vars. Use dependency injection. Switch to async processing. Add input validation. Here's refactored code: [big block]. Also consider rate limiting…
+To improve your payment module, start by migrating all secrets to environment variables. Implement dependency injection for the payment gateway to allow for easier testing. For scalability, I recommend switching to an asynchronous message queue (like RabbitMQ) for processing transactions. You should also add input validation to prevent SQL injection. Here is a refactored version of your `PaymentService` class that includes these changes and some basic logging for audit trails... [generates 100 lines of code]
 
 **Problems:**
-- Suggests async processing *before* securing endpoints
-- Validation appears *after* code generation (backwards)
-- No test strategy — code generated without test dependencies
-- Can't audit why specific choices were made
+- **Sequence Error:** Suggests performance-heavy "async processing" before fixing critical security vulnerabilities.
+- **Backwards Logic:** Generates code first, then mentions validation and rate limiting as afterthoughts.
+- **Missing Prerequisites:** Proposes dependency injection but doesn't establish a testing strategy first.
+- **Black Box:** No explanation of *why* specific architectural choices were made over alternatives.
+- **Auditability:** Hard to verify if the refactor actually covers all OWASP top 10 risks.
 
 </td>
-<td valign="top">
+<td valign="top" width="50%">
 
 **Prompt:** *"decompose: Refactor my payment module for security and scalability"*
 
@@ -136,43 +135,41 @@ vs. Vanilla Claude:
 
 ### Example: Strategy Planning
 
-<table>
+<table width="100%">
 <tr>
 <th width="50%">❌ Before</th>
 <th width="50%">✅ After</th>
 </tr>
 <tr>
-<td valign="top">
+<td valign="top" width="50%">
 
 **Prompt:** *"Build a 2026 go-to-market plan for an AI productivity SaaS"*
 
-> Target SMBs first. Pricing: $19/mo freemium. Channels: LinkedIn ads, content marketing. Messaging: "10x your team's output." Competitors: Notion AI, Grammarly Business...
+> For your 2026 GTM strategy, I recommend targeting SMBs in tech and professional services. Your pricing should be a freemium model starting at $19/user/month to stay competitive with Notion AI and Grammarly. Use LinkedIn ads and SEO content as your primary acquisition channels. Your core messaging should focus on "10x team productivity." You should also consider a partner program for consultants...
 
 **Problems:**
-- Channels picked before personas are defined
-- Pricing set before value prop is validated
-- Competitor analysis doesn't feed into differentiation
-- Linear delivery — changing one assumption requires redoing everything
+- **Premature Decisions:** Selects channels and pricing before defining user personas or validating the value prop.
+- **Circular Logic:** Competitive analysis is mentioned but doesn't actually inform the differentiation strategy.
+- **Dependency Blindness:** Messaging is created in a vacuum without considering market sizing or demand data.
+- **Brittle Output:** The plan is a single linear block; changing the "target audience" requires a total rewrite of the entire response.
 
 </td>
-<td valign="top">
+<td valign="top" width="50%">
 
 **DAG enforces the real dependency order:**
 
 ```
-[1] Goals & Metrics
+[1] Goals
       ↓
-[2] Persona Research ─┐
-[3] Market Sizing    ─┤ (parallel)
-                      ↓
-[4] Value Prop & Messaging (depends on 2+3)
+[2] Personas ──┐
+[3] Market   ──┤ (parallel)
+               ↓
+[4] Value Prop (deps: 2+3)
       ↓
-[5] Competitive Differentiation
+[6] Channels ──┐ (deps: 4+5)
+[7] Pricing  ──┘
       ↓
-[6] Channel Strategy ─┐ (depends on 4+5)
-[7] Pricing Model    ─┘ (parallel)
-      ↓
-[8] Risk Scenarios + GTM Roadmap (synthesis)
+[8] Risk + GTM (synthesis)
 ```
 
 Changing Node 2 (personas) automatically signals which downstream nodes need updating. Dependency-aware by design.
