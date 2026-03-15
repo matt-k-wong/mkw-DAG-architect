@@ -1,0 +1,19 @@
+{
+  "name": "dag-marketplace",
+  "description": "DAG decomposition for complex task planning in Claude Code",
+  "owner": {
+    "name": "Matt Wong"
+  },
+  "metadata": {
+    "description": "DAG decomposition for complex task planning in Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "dag",
+      "source": "./",
+      "description": "Transforms complex tasks into Directed Acyclic Graphs with explicit dependencies, parallel branches, and topological execution order",
+      "version": "1.0.0"
+    }
+  ]
+}

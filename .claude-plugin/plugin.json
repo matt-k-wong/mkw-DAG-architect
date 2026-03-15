@@ -1,0 +1,11 @@
+{
+  "name": "dag",
+  "description": "DAG decomposition for complex task planning in Claude Code",
+  "version": "1.0.0",
+  "author": {
+    "name": "Matt Wong"
+  },
+  "repository": "https://github.com/matt-k-wong/mkw-DAG-architect",
+  "license": "MIT",
+  "keywords": ["dag", "planning", "decomposition", "architecture"]
+}

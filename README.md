@@ -251,7 +251,22 @@ then graduate to Lens 3 when they're ready for real orchestration.**
 3. Go to **claude.ai → Settings → Skills → Add Skill**
 4. Upload the zip
 
-### Option B — Claude Code (CLI)
+### Option B — Claude Code Plugin (Recommended for CLI)
+
+Install via Claude Code's plugin marketplace:
+
+```
+/plugin marketplace add matt-k-wong/mkw-DAG-architect
+/plugin install dag@dag-marketplace
+```
+
+Then use in any conversation:
+
+```
+/dag:architect [your task]
+```
+
+### Option C — Claude Code (Manual)
 
 ```bash
 # Clone the repo
@@ -264,7 +279,7 @@ ln -s "$(pwd)/claude-dag-skill/dag-simulator" ~/.claude/skills/dag-simulator
 cd claude-dag-skill && bash install.sh
 ```
 
-### Option C — API / Custom Deployment
+### Option D — API / Custom Deployment
 
 Paste the contents of `SKILL.md` into your system prompt (remove the YAML header).
 The skill is purely prompt-based — no external dependencies.
