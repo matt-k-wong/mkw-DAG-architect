@@ -1,0 +1,19 @@
+{
+  "name": "decompose-marketplace",
+  "description": "DAG decomposition for learning and planning",
+  "owner": {
+    "name": "Matt Wong"
+  },
+  "metadata": {
+    "description": "Learn to decompose complex problems before building real agents. Breaking messy tasks into clear DAG structures with explicit dependencies and topological ordering.",
+    "version": "1.2.0"
+  },
+  "plugins": [
+    {
+      "name": "decompose",
+      "source": "./",
+      "description": "Transforms complex tasks into Directed Acyclic Graphs with explicit dependencies, parallel branches, cycle detection, and topological execution order",
+      "version": "1.2.0"
+    }
+  ]
+}

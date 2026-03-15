@@ -247,24 +247,41 @@ then graduate to Lens 3 when they're ready for real orchestration.**
 ### Option A — claude.ai (Web/Mobile/Desktop)
 
 1. Download or clone this repo
-2. Zip the `dag-simulator/` folder
+2. Zip the `SKILL.md` file (or the entire folder)
 3. Go to **claude.ai → Settings → Skills → Add Skill**
 4. Upload the zip
 
-### Option B — Claude Code (CLI)
+### Option B — Claude Code Plugin (Recommended for CLI)
+
+Install via Claude Code's plugin marketplace:
+
+```bash
+/plugin marketplace add matt-k-wong/mkw-DAG-architect
+/plugin install decompose@decompose-marketplace
+```
+
+Then use in any conversation:
+
+```
+/decompose [your task]
+/decompose preview: [your task]
+/decompose step mode: [your task]
+```
+
+### Option C — Claude Code (Manual)
 
 ```bash
 # Clone the repo
-git clone https://github.com/YOUR_USERNAME/claude-dag-skill.git
+git clone https://github.com/matt-k-wong/mkw-DAG-architect.git
 
 # Symlink to your skills directory
-ln -s "$(pwd)/claude-dag-skill/dag-simulator" ~/.claude/skills/dag-simulator
+ln -s "$(pwd)/mkw-DAG-architect" ~/.claude/skills/decompose
 
 # Or run the install script
-cd claude-dag-skill && bash install.sh
+cd mkw-DAG-architect && bash install.sh
 ```
 
-### Option C — API / Custom Deployment
+### Option D — API / Custom Deployment
 
 Paste the contents of `SKILL.md` into your system prompt (remove the YAML header).
 The skill is purely prompt-based — no external dependencies.

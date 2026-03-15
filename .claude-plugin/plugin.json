@@ -1,0 +1,11 @@
+{
+  "name": "decompose",
+  "description": "Learn to decompose complex problems. Breaking messy tasks into clear DAG structures with explicit dependencies, parallel branches, and synthesis logic.",
+  "version": "1.2.0",
+  "author": {
+    "name": "Matt Wong"
+  },
+  "repository": "https://github.com/matt-k-wong/mkw-DAG-architect",
+  "license": "MIT",
+  "keywords": ["dag", "decomposition", "planning", "orchestration", "architecture", "structured-reasoning"]
+}
